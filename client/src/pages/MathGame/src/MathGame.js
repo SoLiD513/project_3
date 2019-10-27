@@ -3,6 +3,7 @@ import Wrapper from "./components/Wrapper";
 import Header from "./components/Header";
 import Card from "./components/Card";
 import StartButton from "./components/StartButton";
+// import GoBack from "./components/GoBack";
 import math from "./jsonfiles/math.json";
 import "./MathGame.css";
 import axios from "axios";
