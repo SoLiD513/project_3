@@ -12,7 +12,7 @@ import {
   CardTitle,
   Table,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 class KidsProgressCharts extends React.Component {
@@ -24,10 +24,10 @@ class KidsProgressCharts extends React.Component {
       sub: [0],
       multi: [0],
       div: [0],
-      unknowGame: [0]
+      unknowGame: [0],
     },
     highScoreArray: [0],
-    allHighScores: [0]
+    allHighScores: [0],
   };
 
   componentDidMount() {
@@ -40,10 +40,10 @@ class KidsProgressCharts extends React.Component {
   getUserInfo() {
     axios
       .get(`/api/user/${this.props.match.params.id}`)
-      .then(user => {
+      .then((user) => {
         this.setState({
           user: user.data,
-          gamesArray: this.organizeGamesByName(user.data.history)
+          gamesArray: this.organizeGamesByName(user.data.history),
         });
         let mathHS = this.highScoresByGame(this.state.gamesArray.math);
         let addHS = this.highScoresByGame(this.state.gamesArray.add);
@@ -52,10 +52,10 @@ class KidsProgressCharts extends React.Component {
         let divHS = this.highScoresByGame(this.state.gamesArray.div);
 
         this.setState({
-          highScoreArray: [mathHS, addHS, subHS, multiHS, divHS]
+          highScoreArray: [mathHS, addHS, subHS, multiHS, divHS],
         });
       })
-      .catch(err => {
+      .catch((err) => {
         // console.log(err);
       });
   }
@@ -63,7 +63,7 @@ class KidsProgressCharts extends React.Component {
   getAllHighScores() {
     axios
       .get("/api/user")
-      .then(data => {
+      .then((data) => {
         let highScoresAllUsers = [];
         for (let i = 0; i < Object.keys(data.data).length; i++) {
           let name = data.data[i].username;
@@ -75,29 +75,29 @@ class KidsProgressCharts extends React.Component {
           add: [],
           sub: [],
           multi: [],
-          div: []
+          div: [],
         };
         for (let i = 0; i < highScoresAllUsers.length; i++) {
           let name = highScoresAllUsers[i].name;
           finalHS.math.push({
             name: name,
-            score: this.highScoresByGame(highScoresAllUsers[i].history.math)
+            score: this.highScoresByGame(highScoresAllUsers[i].history.math),
           });
           finalHS.add.push({
             name: name,
-            score: this.highScoresByGame(highScoresAllUsers[i].history.add)
+            score: this.highScoresByGame(highScoresAllUsers[i].history.add),
           });
           finalHS.sub.push({
             name: name,
-            score: this.highScoresByGame(highScoresAllUsers[i].history.sub)
+            score: this.highScoresByGame(highScoresAllUsers[i].history.sub),
           });
           finalHS.multi.push({
             name: name,
-            score: this.highScoresByGame(highScoresAllUsers[i].history.multi)
+            score: this.highScoresByGame(highScoresAllUsers[i].history.multi),
           });
           finalHS.div.push({
             name: name,
-            score: this.highScoresByGame(highScoresAllUsers[i].history.div)
+            score: this.highScoresByGame(highScoresAllUsers[i].history.div),
           });
         }
         let math = finalHS.math.sort(
@@ -121,36 +121,36 @@ class KidsProgressCharts extends React.Component {
               game: "Math",
               history: math,
               highScore: math[0].score,
-              user: math[0].name
+              user: math[0].name,
             },
             {
               game: "Addition",
               history: add,
               highScore: add[0].score,
-              user: add[0].name
+              user: add[0].name,
             },
             {
               game: "Subtract",
               history: sub,
               highScore: sub[0].score,
-              user: sub[0].name
+              user: sub[0].name,
             },
             {
               game: "Multiplication",
               history: multi,
               highScore: multi[0].score,
-              user: multi[0].name
+              user: multi[0].name,
             },
             {
               game: "Division",
               history: div,
               highScore: div[0].score,
-              user: div[0].name
-            }
-          ]
+              user: div[0].name,
+            },
+          ],
         });
       })
-      .catch(err => {
+      .catch((err) => {
         // console.log(err);
       });
   }
@@ -193,7 +193,7 @@ class KidsProgressCharts extends React.Component {
       sub,
       multi,
       div,
-      unknowGame
+      unknowGame,
     };
   }
 
@@ -223,8 +223,8 @@ class KidsProgressCharts extends React.Component {
         addAllTime,
         subAllTime,
         multiAllTime,
-        divAllTime
-      ]
+        divAllTime,
+      ],
     });
   }
   render() {
@@ -245,7 +245,7 @@ class KidsProgressCharts extends React.Component {
     // // // Dashboard view - High Scores
     // #############################
     const dashboardHighScores = {
-      data: canvas => {
+      data: (canvas) => {
         var ctx = canvas.getContext("2d");
         var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
         gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
@@ -256,7 +256,7 @@ class KidsProgressCharts extends React.Component {
             "Addition",
             "Subtraction",
             "Multiplication",
-            "Division"
+            "Division",
           ],
           datasets: [
             {
@@ -267,28 +267,28 @@ class KidsProgressCharts extends React.Component {
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               borderColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               pointBorderColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               pointBackgroundColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               /////////////////////////////////////////////////////////////////
               pointBorderWidth: 2,
@@ -299,15 +299,15 @@ class KidsProgressCharts extends React.Component {
               borderWidth: 1,
               //user high score for each game
               //   Math/ Add/ Sub/ Multi/ Div
-              data: this.state.highScoreArray
-            }
-          ]
+              data: this.state.highScoreArray,
+            },
+          ],
         };
       },
       options: {
         maintainAspectRatio: false,
         legend: {
-          display: false
+          display: false,
         },
         tooltips: {
           bodySpacing: 4,
@@ -316,46 +316,46 @@ class KidsProgressCharts extends React.Component {
           position: "nearest",
           xPadding: 10,
           yPadding: 10,
-          caretPadding: 10
+          caretPadding: 10,
         },
         responsive: 1,
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
               },
               gridLines: {
                 zeroLineColor: "transparent",
-                drawBorder: false
-              }
-            }
+                drawBorder: false,
+              },
+            },
           ],
           xAxes: [
             {
               display: 0,
               ticks: {
-                display: false
+                display: false,
               },
               gridLines: {
                 zeroLineColor: "transparent",
                 drawTicks: false,
                 display: false,
-                drawBorder: false
-              }
-            }
-          ]
+                drawBorder: false,
+              },
+            },
+          ],
         },
         layout: {
-          padding: { left: 20, right: 0, top: 15, bottom: 15 }
-        }
-      }
+          padding: { left: 20, right: 0, top: 15, bottom: 15 },
+        },
+      },
     };
     // ##############################
     // // // Dashboard view - All Products - Card
     // ############################################################################################################
     const dashboardTimesPerGame = {
-      data: canvas => {
+      data: (canvas) => {
         var ctx = canvas.getContext("2d");
         var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
         gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
@@ -366,7 +366,7 @@ class KidsProgressCharts extends React.Component {
             "Addition",
             "Subtraction",
             "Multiplication",
-            "Division"
+            "Division",
           ],
           datasets: [
             {
@@ -377,28 +377,28 @@ class KidsProgressCharts extends React.Component {
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               borderColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               pointBorderColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               pointBackgroundColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               /////////////////////////////////////////////////////////////////
               pointBorderWidth: 2,
@@ -414,16 +414,16 @@ class KidsProgressCharts extends React.Component {
                 this.state.gamesArray.add[0].time,
                 this.state.gamesArray.sub[0].time,
                 this.state.gamesArray.multi[0].time,
-                this.state.gamesArray.div[0].time
-              ]
-            }
-          ]
+                this.state.gamesArray.div[0].time,
+              ],
+            },
+          ],
         };
       },
       options: {
         maintainAspectRatio: false,
         legend: {
-          display: false
+          display: false,
         },
         tooltips: {
           bodySpacing: 4,
@@ -432,46 +432,46 @@ class KidsProgressCharts extends React.Component {
           position: "nearest",
           xPadding: 10,
           yPadding: 10,
-          caretPadding: 10
+          caretPadding: 10,
         },
         responsive: 1,
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
               },
               gridLines: {
                 zeroLineColor: "transparent",
-                drawBorder: false
-              }
-            }
+                drawBorder: false,
+              },
+            },
           ],
           xAxes: [
             {
               display: 0,
               ticks: {
-                display: false
+                display: false,
               },
               gridLines: {
                 zeroLineColor: "transparent",
                 drawTicks: false,
                 display: false,
-                drawBorder: false
-              }
-            }
-          ]
+                drawBorder: false,
+              },
+            },
+          ],
         },
         layout: {
-          padding: { left: 20, right: 0, top: 15, bottom: 15 }
-        }
-      }
+          padding: { left: 20, right: 0, top: 15, bottom: 15 },
+        },
+      },
     };
     // ######################################################################################################
     // // // Dashboard view - Bar Chart - Card
     // #############################
     const dashboardLastScoresPerGame = {
-      data: canvas => {
+      data: (canvas) => {
         var ctx = canvas.getContext("2d");
         var gradientFill = ctx.createLinearGradient(0, 170, 0, 50);
         gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
@@ -482,7 +482,7 @@ class KidsProgressCharts extends React.Component {
             "Addition",
             "Subtraction",
             "Multiplication",
-            "Division"
+            "Division",
           ],
           datasets: [
             {
@@ -493,28 +493,28 @@ class KidsProgressCharts extends React.Component {
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               borderColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               pointBorderColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               pointBackgroundColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
                 "rgba(255, 206, 86, 0.8)",
                 "rgba(75, 192, 192, 0.8)",
-                "rgba(153, 102, 255, 0.8)"
+                "rgba(153, 102, 255, 0.8)",
               ],
               //////////////////////////////////////////////////////
               pointBorderWidth: 2,
@@ -530,16 +530,16 @@ class KidsProgressCharts extends React.Component {
                 this.state.gamesArray.add[0].score,
                 this.state.gamesArray.sub[0].score,
                 this.state.gamesArray.multi[0].score,
-                this.state.gamesArray.div[0].score
-              ]
-            }
-          ]
+                this.state.gamesArray.div[0].score,
+              ],
+            },
+          ],
         };
       },
       options: {
         maintainAspectRatio: false,
         legend: {
-          display: false
+          display: false,
         },
         tooltips: {
           bodySpacing: 4,
@@ -548,49 +548,49 @@ class KidsProgressCharts extends React.Component {
           position: "nearest",
           xPadding: 10,
           yPadding: 10,
-          caretPadding: 10
+          caretPadding: 10,
         },
         responsive: 1,
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true
+                beginAtZero: true,
               },
               gridLines: {
                 zeroLineColor: "transparent",
-                drawBorder: false
-              }
-            }
+                drawBorder: false,
+              },
+            },
           ],
           xAxes: [
             {
               display: 0,
               ticks: {
-                display: false
+                display: false,
               },
               gridLines: {
                 zeroLineColor: "transparent",
                 drawTicks: false,
                 display: false,
-                drawBorder: false
-              }
-            }
-          ]
+                drawBorder: false,
+              },
+            },
+          ],
         },
         layout: {
-          padding: { left: 20, right: 0, top: 15, bottom: 15 }
-        }
-      }
+          padding: { left: 20, right: 0, top: 15, bottom: 15 },
+        },
+      },
     };
     return (
       <>
-      <div className="child-dash">
-        <NavBar />
-      </div>
-        <br> </br>
-        <br></br>
-        <br></br>
+        <div className="child-dash">
+          <NavBar />
+        </div>
+        <br />
+        <br />
+        <br />
         <div className="content">
           <Row>
             <Col xs={12} md={4}>
@@ -678,7 +678,7 @@ class KidsProgressCharts extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.allHighScores.map(game => {
+                    {this.state.allHighScores.map((game) => {
                       if (game.highScore) {
                         return (
                           <tr>
